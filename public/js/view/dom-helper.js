@@ -22,14 +22,6 @@ export default class DomHelper {
         return document.body;
     }
 
-    static getClearUploadedBackgroundImageButton() {
-        return document.getElementById('clearUploadedBackgroundImageButton');
-    }
-
-    static getClearUploadedImageButton() {
-        return document.getElementById('clearUploadedImageButton');
-    }
-
     static getChangeColorButton() {
         return document.getElementById('changePlayerColorButton');
     }
@@ -38,48 +30,12 @@ export default class DomHelper {
         return document.getElementById('changePlayerNameButton');
     }
 
-    static getDecreaseBotsButton() {
-        return document.getElementById('decreaseBotsButton');
-    }
-
-    static getDecreaseFoodButton() {
-        return document.getElementById('decreaseFoodButton');
-    }
-
-    static getDecreaseSpeedButton() {
-        return document.getElementById('decreaseSpeedButton');
-    }
-
-    static getDecreaseStartLengthButton() {
-        return document.getElementById('decreaseStartLengthButton');
-    }
-
     static getFullScreenButton() {
         return document.getElementById('full-screen-button');
     }
 
     static getGameBoardDiv() {
         return document.getElementById('game-board');
-    }
-
-    static getImageUploadElement() {
-        return document.getElementById('image-upload');
-    }
-
-    static getIncreaseBotsButton() {
-        return document.getElementById('increaseBotsButton');
-    }
-
-    static getIncreaseFoodButton() {
-        return document.getElementById('increaseFoodButton');
-    }
-
-    static getIncreaseSpeedButton() {
-        return document.getElementById('increaseSpeedButton');
-    }
-
-    static getIncreaseStartLengthButton() {
-        return document.getElementById('increaseStartLengthButton');
     }
 
     static getNotificationsDiv() {
@@ -92,22 +48,6 @@ export default class DomHelper {
 
     static getPlayOrWatchButton() {
         return document.getElementById('play-or-watch-button');
-    }
-
-    static getResetBotsButton() {
-        return document.getElementById('resetBotsButton');
-    }
-
-    static getResetFoodButton() {
-        return document.getElementById('resetFoodButton');
-    }
-
-    static getResetSpeedButton() {
-        return document.getElementById('resetSpeedButton');
-    }
-
-    static getResetStartLengthButton() {
-        return document.getElementById('resetStartLengthButton');
     }
 
     static getToggleGridLinesButton() {
@@ -130,23 +70,6 @@ export default class DomHelper {
         this.getChangeNameButton().innerHTML = text;
     }
 
-    static setCurrentFoodAmountLabelText(text) {
-        document.getElementById('currentFoodAmount').innerHTML = text;
-    }
-
-    static setCurrentNumberOfBotsLabelText(text) {
-        document.getElementById('currentNumberOfBots').innerHTML = text;
-    }
-
-    static setCurrentSpeedLabelText(text) {
-        document.getElementById('currentSpeed').innerHTML = text;
-    }
-
-
-    static setCurrentStartLengthLabelText(text) {
-        document.getElementById('currentStartLength').innerHTML = text;
-    }
-
     static setKillMessagesDivText(text) {
         document.getElementById('kill-messages').innerHTML = text;
     }
@@ -163,9 +86,6 @@ export default class DomHelper {
         this.getPlayerNameElement().value = value;
     }
 
-    static setPlayerStatsDivText(text) {
-        document.getElementById('player-stats').innerHTML = text;
-    }
 
     static setToggleSoundButtonText(text) {
         this.getToggleSoundButton().textContent = text;

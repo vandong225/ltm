@@ -13,12 +13,11 @@ const ValidationService = require('../services/validation-service');
  */
 class PlayerService {
 
-    constructor(playerContainer, playerStatBoard, boardOccupancyService, imageService,
+    constructor(playerContainer, playerStatBoard, boardOccupancyService,
             nameService, notificationService, runGameCycle) {
         this.playerContainer = playerContainer;
         this.playerStatBoard = playerStatBoard;
         this.boardOccupancyService = boardOccupancyService;
-        this.imageService = imageService;
         this.nameService = nameService;
         this.notificationService = notificationService;
         this.runGameCycle = runGameCycle;
@@ -32,23 +31,16 @@ class PlayerService {
     }
 
     // previousName and previousImage are optional
-    addPlayer(socket, previousName, previousImage) {
+    addPlayer(socket, previousName) {
         const playerName = this.nameService.getPlayerName();
         const newPlayer = this.createPlayer(socket.id, playerName);
         socket.emit(ServerConfig.IO.OUTGOING.NEW_PLAYER_INFO, playerName, newPlayer.color);
         socket.emit(ServerConfig.IO.OUTGOING.BOARD_INFO, Board);
         this.notificationService.broadcastNotification(`${playerName} has joined!`, newPlayer.color);
-        const backgroundImage = this.imageService.getBackgroundImage();
-        if (backgroundImage) {
-            socket.emit(ServerConfig.IO.OUTGOING.NEW_BACKGROUND_IMAGE, backgroundImage);
-        }
 
         const previousNameCleaned = ValidationService.cleanString(previousName);
         if (ValidationService.isValidPlayerName(previousNameCleaned)) {
             this.changePlayerName(socket, previousName);
-        }
-        if (previousImage) {
-            this.imageService.updatePlayerImage(newPlayer.id, previousImage);
         }
 
         // Start game if the first player has joined

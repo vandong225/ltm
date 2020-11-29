@@ -4,10 +4,8 @@ const ServerConfig = require('../configs/server-config');
 
 const AdminService = require('../services/admin-service');
 const BoardOccupancyService = require('../services/board-occupancy-service');
-const BotDirectionService = require('../services/bot-direction-service');
 const FoodService = require('../services/food-service');
 const GameControlsService = require('../services/game-controls-service');
-const ImageService = require('../services/image-service');
 const NameService = require('../services/name-service');
 const NotificationService = require('../services/notification-service');
 const PlayerService = require('../services/player-service');
@@ -27,12 +25,10 @@ class GameController {
         this.nameService = new NameService();
         this.boardOccupancyService = new BoardOccupancyService();
         this.notificationService = new NotificationService();
-        this.botDirectionService = new BotDirectionService(this.boardOccupancyService);
         this.foodService = new FoodService(this.playerStatBoard, this.boardOccupancyService,
             this.nameService, this.notificationService);
-        this.imageService = new ImageService(this.playerContainer, this.playerStatBoard, this.notificationService);
         this.playerService = new PlayerService(this.playerContainer, this.playerStatBoard, this.boardOccupancyService,
-            this.imageService, this.nameService, this.notificationService, this.runGameCycle.bind(this));
+           this.nameService, this.notificationService, this.runGameCycle.bind(this));
         this.adminService = new AdminService(this.playerContainer, this.foodService, this.nameService,
             this.notificationService, this.playerService);
         this.playerService.init(this.adminService.getPlayerStartLength.bind(this.adminService));
@@ -60,23 +56,6 @@ class GameController {
             socket.on(ServerConfig.IO.INCOMING.DISCONNECT,
                 self.playerService.disconnectPlayer.bind(self.playerService, socket.id));
             // Image Service
-            socket.on(ServerConfig.IO.INCOMING.CLEAR_UPLOADED_BACKGROUND_IMAGE,
-                self.imageService.clearBackgroundImage.bind(self.imageService, socket.id));
-            socket.on(ServerConfig.IO.INCOMING.BACKGROUND_IMAGE_UPLOAD,
-                self.imageService.updateBackgroundImage.bind(self.imageService, socket.id));
-            socket.on(ServerConfig.IO.INCOMING.CLEAR_UPLOADED_IMAGE,
-                self.imageService.clearPlayerImage.bind(self.imageService, socket.id));
-            socket.on(ServerConfig.IO.INCOMING.IMAGE_UPLOAD,
-                self.imageService.updatePlayerImage.bind(self.imageService, socket.id));
-            // Admin Service
-            socket.on(ServerConfig.IO.INCOMING.BOT_CHANGE,
-                self.adminService.changeBots.bind(self.adminService, socket.id));
-            socket.on(ServerConfig.IO.INCOMING.FOOD_CHANGE,
-                self.adminService.changeFood.bind(self.adminService, socket.id));
-            socket.on(ServerConfig.IO.INCOMING.SPEED_CHANGE,
-                self.adminService.changeSpeed.bind(self.adminService, socket.id));
-            socket.on(ServerConfig.IO.INCOMING.START_LENGTH_CHANGE,
-                self.adminService.changeStartLength.bind(self.adminService, socket.id));
         });
     }
 
@@ -95,14 +74,6 @@ class GameController {
         }
 
         // Change bots' directions
-        for (const botId of this.adminService.getBotIds()) {
-            const bot = this.playerContainer.getPlayer(botId);
-            if (Math.random() <= ServerConfig.BOT_CHANGE_DIRECTION_PERCENT) {
-                this.botDirectionService.changeToRandomDirection(bot);
-            }
-            this.botDirectionService.changeDirectionIfInDanger(bot);
-        }
-
         this.playerService.movePlayers();
         this.playerService.handlePlayerCollisions();
         this.playerService.respawnPlayers();

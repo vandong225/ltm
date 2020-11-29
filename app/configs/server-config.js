@@ -8,7 +8,6 @@ const ServerConfig = {
     SPAWN_TURN_LEEWAY: 10,
     DEFAULT_STARTING_BOTS: 0,
     MAX_BOTS: 20,
-    BOT_CHANGE_DIRECTION_PERCENT: 0.1,
     FOOD: {
         DEFAULT_AMOUNT: 25,
         NORMAL: {
@@ -42,17 +41,13 @@ const ServerConfig = {
     IO: {
         DEFAULT_CONNECTION: 'connection',
         INCOMING: {
-            BOT_CHANGE: 'bot change',
             COLOR_CHANGE: 'player changed color',
-            FOOD_CHANGE: 'food change',
-            SPEED_CHANGE: 'speed change',
-            START_LENGTH_CHANGE: 'start length change',
             JOIN_GAME: 'join game',
             SPECTATE_GAME: 'spectate game',
             CLEAR_UPLOADED_BACKGROUND_IMAGE: 'clear uploaded background image',
-            BACKGROUND_IMAGE_UPLOAD: 'background image upload',
+            // BACKGROUND_IMAGE_UPLOAD: 'background image upload',
             CLEAR_UPLOADED_IMAGE: 'clear uploaded image',
-            IMAGE_UPLOAD: 'image upload',
+            // IMAGE_UPLOAD: 'image upload',
             NEW_PLAYER: 'new player',
             NAME_CHANGE: 'player changed name',
             KEY_DOWN: 'key down',
